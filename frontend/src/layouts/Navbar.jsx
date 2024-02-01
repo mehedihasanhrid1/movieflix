@@ -8,11 +8,15 @@ const Navbar = () => {
   const navlist = (
     <>
      <li>Home</li>
+     <li>Shows</li>
+     <li>Live</li>
+     <li>Ticket</li>
+     <li>Bookings</li>
     </>
   );
 
   return (
-    <section className="shadow-md bg-gray-100">
+    <section className="shadow-md bg-blue-100">
       <div className="px-4 md:px-5">
         <nav className="flex items-center justify-between py-4">
           <a
@@ -21,10 +25,13 @@ const Navbar = () => {
           >
             Movie<span className="text-red-500">Flix</span>
           </a>
+          <ul className="hidden lg:w-auto lg:space-x-6 lg:items-center lg:flex text-lg font-medium text-gray-700 ml-7 cursor-pointer">
+              {navlist}
+            </ul>
           <div className="flex justify-between items-center flex-row-reverse lg:flex-row lg:space-x-2">
             <div className="lg:hidden">
               <button
-                className="flex items-center px-3 py-2 text-blue-500 border border-blue-200  rounded hover:text-blue-600 hover:border-gray-400 lg:hidden"
+                className="flex items-center px-3 py-2 text-red-500 border border-red-200  rounded hover:text-red-600 hover:border-gray-400 lg:hidden"
                 onClick={() => setOpen(true)}
               >
                 <svg
@@ -42,18 +49,15 @@ const Navbar = () => {
                 </svg>
               </button>
             </div>
-            <ul className="hidden lg:w-auto lg:space-x-6 lg:items-center lg:flex text-lg font-medium text-gray-700">
-              {navlist}
-            </ul>
             <div className="hidden lg:block">
 
                   <a href="#">
-                    <button className="inline-block px-5 py-3 mr-4  font-semibold leading-none text-blue-500 border border-blue-500 rounded hover:text-blue-700 hover:border-blue-700">
+                    <button className="inline-block px-5 py-3 mr-4  font-semibold leading-none text-red-500 border border-red-500 rounded hover:text-red-400 hover:border-red-400">
                       Log In
                     </button>
                   </a>
                   <a href="#">
-                    <button className="inline-block px-5 py-3 mr-2 font-semibold leading-none text-gray-100 bg-blue-600 hover:bg-blue-500 border border-gray-100 rounded">
+                    <button className="inline-block px-5 py-3 mr-2 font-semibold leading-none text-gray-100 bg-red-500 hover:bg-red-400 border border-gray-100 rounded">
                       Register
                     </button>
                   </a>
@@ -70,7 +74,7 @@ const Navbar = () => {
           }`}
         ></div>
         <div
-          className={`absolute inset-0 z-50 h-screen p-3 duration-500 transform bg-blue-50 w-80 lg:hidden lg:transform-none lg:relative ${
+          className={`absolute inset-0 z-50 h-screen p-3 duration-500 transform bg-red-50 w-80 lg:hidden lg:transform-none lg:relative ${
             open
               ? "translate-x-0 ease-in-opacity-100"
               : "-translate-x-full ease-out opacity-0"
@@ -81,7 +85,7 @@ const Navbar = () => {
               Movie<span className="text-red-500">Flix</span>
             </a>
             <button
-              className="p-2 text-blue-500 rounded-md hover:text-blue-300 lg:hidden"
+              className="p-2 text-red-500 rounded-md hover:text-red-300 lg:hidden"
               onClick={() => setOpen(false)}
             >
               <svg
@@ -107,7 +111,7 @@ const Navbar = () => {
                 <a href="#">
                   <button
                     onClick={() => setOpen(false)}
-                    className="inline-block w-full px-5 py-3 mr-2 font-semibold leading-none text-center text-gray-100 bg-blue-600 hover:bg-blue-500 rounded-full"
+                    className="inline-block w-full px-5 py-3 mr-2 font-semibold leading-none text-center text-gray-100 bg-red-500 hover:bg-red-400 rounded-full"
                   >
                     Login
                   </button>
@@ -117,7 +121,7 @@ const Navbar = () => {
                 <a href="#">
                   <button
                     onClick={() => setOpen(false)}
-                    className="inline-block w-full px-5 py-3 mr-2 font-semibold leading-none text-center border rounded-full hover:text-white bg-blue-600 text-gray-100 hover:bg-blue-500 border-gray-100"
+                    className="inline-block w-full px-5 py-3 mr-2 font-semibold leading-none text-center border rounded-full hover:text-white bg-red-500 text-gray-100 hover:bg-red-400 border-gray-100"
                   >
                     Register
                   </button>
