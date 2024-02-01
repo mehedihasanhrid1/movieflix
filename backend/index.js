@@ -31,7 +31,7 @@ async function run() {
   try {
     const database = client.db("MovieFlix");
     const showCollection = database.collection("Shows");
-
+    
     app.get("/shows", async (req, res) => {
       try {
 
