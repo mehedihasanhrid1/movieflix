@@ -15,7 +15,7 @@ const ShowDetails = () => {
     status,
     premiered,
     schedule,
-  } = data;
+  } = data.show;
   const handleBooking = (e) => {
     e.preventDefault();
 
@@ -46,26 +46,18 @@ const ShowDetails = () => {
     });
   };
   return (
-    <div>
-      <div className="flex justify-end items-center py-4">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => window.history.back()}
-        >
-          Go Back
-        </button>
-      </div>
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="w-full md:w-1/2 h-[500px] ">
+    <div className="py-5 lg:py-8 bg-[#e5f0f7f5]">
+      <div className="flex flex-col md:flex-row">
+        <div className="h-[500px] w-1/2">
           <img
             className="w-full object-contain h-full"
             src={image?.original}
             alt={name}
           />
         </div>
-        <div className="flex-1">
-          <h1 className="text-3xl font-bold text-center my-6">{name}</h1>
-          <p dangerouslySetInnerHTML={{ __html: summary }}></p>
+        <div className="-ml-10">
+          <h1 className="text-4xl font-bold text-gray-900 mb-6">{name}</h1>
+          <p>{summary}</p>
           <ul>
             <li>
               <span className="font-bold text-lg">Rating:</span>{" "}
@@ -90,7 +82,6 @@ const ShowDetails = () => {
               {schedule?.time}
             </li>
           </ul>
-          {/* Open the modal using document.getElementById('ID').showModal() method */}
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
             onClick={() => document.getElementById("my_modal_5").showModal()}

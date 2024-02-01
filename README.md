@@ -1,7 +1,7 @@
 # MovieFlix - Enjoy your Shows
 
 ## Website Link: [Click Here]()
-## Server Link: [Click Here]()
+## Server Link: [Click Here](https://movieflixquadbshows.vercel.app/shows/)
 
 ## Overview
 MovieFlix is a web application that allows users to view a list of movie shows and their details, along with the option to view the summary of each show and book tickets for a selected show.
