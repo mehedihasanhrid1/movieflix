@@ -3,6 +3,7 @@ import App from "../App";
 import Root from "./Root";
 import ShowDetails from "../pages/ShowDetails";
 import Errorpage from "../components/Errorpage";
+import Cart from "../components/Cart";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <App />,
+      },
+      {
+        path: "/bookings",
+        element: <Cart/>,
       },
       {
         path: "/shows/:id",

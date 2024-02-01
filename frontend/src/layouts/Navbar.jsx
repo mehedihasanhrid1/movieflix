@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -8,11 +8,36 @@ const Navbar = () => {
 
   const navlist = (
     <>
-     <Link to="/">Home</Link>
-     <li>Shows</li>
-     <li>Live</li>
-     <li>Ticket</li>
-     <Link to="/bookings">Bookings</Link>
+     <NavLink
+        className={(navData) =>
+          navData.isActive
+            ? "text-red-500  border-b-2 border-red-500"
+            : "hover:text-red-600 text-gray-800"
+        }
+        to="/"
+      >
+        Home
+      </NavLink>
+      <li
+        className="hover:text-red-600 text-gray-800 cursor-pointer"
+      >
+        Shows
+      </li>
+      <li
+        className="hover:text-red-600 text-gray-800 cursor-pointer"
+      >
+        Live
+      </li>
+      <NavLink
+        className={(navData) =>
+          navData.isActive
+            ? "text-red-500  border-b-2 border-red-500"
+            : "hover:text-red-600 text-gray-800"
+        }
+        to="/bookings"
+      >
+        Bookings
+      </NavLink>
     </>
   );
 
@@ -26,7 +51,7 @@ const Navbar = () => {
           >
             Movie<span className="text-red-500">Flix</span>
           </a>
-          <ul className="hidden lg:w-auto lg:space-x-6 lg:items-center lg:flex text-lg font-medium text-gray-700 ml-7 cursor-pointer">
+          <ul className="hidden lg:w-auto lg:space-x-6 lg:items-center lg:flex text-lg font-medium text-gray-700 ml-7">
               {navlist}
             </ul>
           <div className="flex justify-between items-center flex-row-reverse lg:flex-row lg:space-x-2">

@@ -20,55 +20,62 @@ const ShowDetails = () => {
 
   const handleBooking = (e) => {
     e.preventDefault();
-
     const form = e.target;
+
     const name = form.name.value;
     const email = form.email.value;
-    const movieName = form.movieName.value;
+    const movie = form.movie.value;
+    const price = form.price.value;
     const time = form.time.value;
-    const day = form.day.value;
+    const bookingimage = image.original;
 
     const booking = {
       name,
       email,
-      movieName,
+      movie,
       time,
-      day,
+      price,
+      bookingimage
     };
 
-    // set to local storage
-    localStorage.setItem("bookings", JSON.stringify(booking));
+    const existingBookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    existingBookings.push(booking);
+    localStorage.setItem("bookings", JSON.stringify(existingBookings));
 
-    document.getElementById("my_modal_5").close();
     Swal.fire({
-      title: "you booked this show",
-      text: "Congratulations! your booking is successful. Check your email for confirmation",
+      title: "You booked this show!",
+      text: "Congratulations! your booking is successful.",
       icon: "success",
-      confirmButtonText: "OKAY",
+      confirmButtonText: "Okey",
     });
+
+    openModal(!modal);
   };
+
   return (
     <div className="py-5 lg:py-8 bg-[#e5f0f7f5]">
       <div className="flex flex-col lg:flex-row">
         <div className="mx-5 md:mx-10 flex items-center justify-center">
           <a href={data.show.url}>
-         <div className="h-96 w-80 md:h-[32rem] md:w-[30rem]">
-         <img
-            className="rounded-lg h-full w-full object-cover"
-            src={image?.original}
-            alt={name}
-          />
-         </div>
+            <div className="h-96 w-80 md:h-[32rem] md:w-[30rem]">
+              <img
+                className="rounded-lg h-full w-full object-cover"
+                src={image?.original}
+                alt={name}
+              />
+            </div>
           </a>
         </div>
         <div className="px-5 md:px-8 py-8 lg:py-0 lg:px-0">
           <h1 className="text-4xl  font-bold text-gray-900 mb-6">{name}</h1>
-          <p className="text-gray-700 pr-10 pb-3" dangerouslySetInnerHTML={{__html: summary}}></p>
+          <p
+            className="text-gray-700 pr-10 pb-3"
+            dangerouslySetInnerHTML={{ __html: summary }}
+          ></p>
           <ul className="space-y-1">
             <li>
               <span className="font-bold text-lg pr-2">Rating:</span>{" "}
-              {rating.average ? rating.average : "N/A"
-              }
+              {rating.average ? rating.average : "N/A"}
             </li>
             <li>
               <span className="font-bold text-lg pr-2">Genres:</span>{" "}
@@ -82,7 +89,8 @@ const ShowDetails = () => {
               <span className="font-bold text-lg pr-2">Status:</span> {status}
             </li>
             <li>
-              <span className="font-bold text-lg pr-2">Premiered:</span> {premiered}
+              <span className="font-bold text-lg pr-2">Premiered:</span>{" "}
+              {premiered}
             </li>
             <li>
               <span className="font-bold text-lg pr-2">Schedule:</span>{" "}
@@ -97,7 +105,6 @@ const ShowDetails = () => {
           </button>
         </div>
       </div>
-
 
       <div
         className={`${
@@ -120,72 +127,78 @@ const ShowDetails = () => {
             >
               <label
                 className="block mb-2  font-medium text-gray-900"
-                htmlFor="title"
+                htmlFor="name"
               >
-                Title:
+                Name:
               </label>
               <input
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
-                placeholder="Task Title"
+                placeholder="Your name"
                 type="text"
-                id="title"
-                name="title"
+                id="name"
+                name="name"
                 required
               />
 
               <label
                 className="block mb-2  font-medium text-gray-900"
-                htmlFor="description"
+                htmlFor="email"
               >
-                Description:
-              </label>
-              <textarea
-                id="description"
-                placeholder="Task Description"
-                className="bg-gray-50  border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full  px-2 leading-tight  border py-2"
-                name="description"
-                required
-              />
-
-              <label
-                className="block mb-2  font-medium text-gray-900"
-                htmlFor="deadline"
-              >
-                Deadline:
+                Email:
               </label>
               <input
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
-                type="date"
-                id="deadline"
-                name="deadline"
-                // defaultValue={editTaskData.deadline}
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
+                placeholder="name@domain.com"
+                type="text"
+                id="email"
+                name="email"
                 required
               />
 
               <label
                 className="block mb-2  font-medium text-gray-900"
-                htmlFor="priority"
+                htmlFor="movie"
               >
-                Priority:
+                Movie name:
+              </label>
+              <input
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
+                type="text"
+                id="movie"
+                name="movie"
+                defaultValue={name}
+                required
+              />
+
+              <label
+                className="block mb-2  font-medium text-gray-900"
+                htmlFor="price"
+              >
+                Price:
+              </label>
+              <input
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
+                type="text"
+                id="price"
+                name="price"
+                defaultValue="$100"
+                disabled
+              />
+
+              <label
+                className="block mb-2  font-medium text-gray-900"
+                htmlFor="time"
+              >
+                Time:
               </label>
               <select
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
-                id="priority"
-                name="priority"
-                required
+                defaultValue={schedule?.time}
+                name="time"
               >
-                {/* <option defaultValue={editTaskData.priority}>
-                  {editTaskData.priority}
+                <option name="time" key={schedule?.time} value={schedule?.time}>
+                  {schedule?.time}
                 </option>
-                {editTaskData.priority !== "Low" && (
-                  <option value="Low">Low</option>
-                )}
-                {editTaskData.priority !== "Moderate" && (
-                  <option value="Moderate">Moderate</option>
-                )}
-                {editTaskData.priority !== "High" && (
-                  <option value="High">High</option>
-                )} */}
               </select>
 
               <span className="justify-center gap-3 lg:gap-4 flex shadow-sm items-center">
@@ -209,7 +222,6 @@ const ShowDetails = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };
