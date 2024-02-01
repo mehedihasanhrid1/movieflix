@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -7,11 +8,11 @@ const Navbar = () => {
 
   const navlist = (
     <>
-     <li>Home</li>
+     <Link to="/">Home</Link>
      <li>Shows</li>
      <li>Live</li>
      <li>Ticket</li>
-     <li>Bookings</li>
+     <Link to="/bookings">Bookings</Link>
     </>
   );
 

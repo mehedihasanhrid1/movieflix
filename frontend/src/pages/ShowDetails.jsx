@@ -1,9 +1,10 @@
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
-import BookingModal from "../components/BookingModal";
+import { useState } from "react";
 
 const ShowDetails = () => {
   const data = useLoaderData();
+  const [modal, openModal] = useState(false);
 
   const {
     name,
@@ -16,6 +17,7 @@ const ShowDetails = () => {
     premiered,
     schedule,
   } = data.show;
+
   const handleBooking = (e) => {
     e.preventDefault();
 
@@ -47,54 +49,167 @@ const ShowDetails = () => {
   };
   return (
     <div className="py-5 lg:py-8 bg-[#e5f0f7f5]">
-      <div className="flex flex-col md:flex-row">
-        <div className="h-[500px] w-1/2">
-          <img
-            className="w-full object-contain h-full"
+      <div className="flex flex-col lg:flex-row">
+        <div className="mx-5 md:mx-10 flex items-center justify-center">
+          <a href={data.show.url}>
+         <div className="h-96 w-80 md:h-[32rem] md:w-[30rem]">
+         <img
+            className="rounded-lg h-full w-full object-cover"
             src={image?.original}
             alt={name}
           />
+         </div>
+          </a>
         </div>
-        <div className="-ml-10">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">{name}</h1>
-          <p>{summary}</p>
-          <ul>
+        <div className="px-5 md:px-8 py-8 lg:py-0 lg:px-0">
+          <h1 className="text-4xl  font-bold text-gray-900 mb-6">{name}</h1>
+          <p className="text-gray-700 pr-10 pb-3" dangerouslySetInnerHTML={{__html: summary}}></p>
+          <ul className="space-y-1">
             <li>
-              <span className="font-bold text-lg">Rating:</span>{" "}
-              {rating?.average}
+              <span className="font-bold text-lg pr-2">Rating:</span>{" "}
+              {rating.average ? rating.average : "N/A"
+              }
             </li>
             <li>
-              <span className="font-bold text-lg">Genres:</span>{" "}
+              <span className="font-bold text-lg pr-2">Genres:</span>{" "}
               {genres?.join(", ")}
             </li>
             <li>
-              <span className="font-bold text-lg">Network:</span>{" "}
+              <span className="font-bold text-lg pr-2">Network:</span>{" "}
               {network?.name}
             </li>
             <li>
-              <span className="font-bold text-lg">Status:</span> {status}
+              <span className="font-bold text-lg pr-2">Status:</span> {status}
             </li>
             <li>
-              <span className="font-bold text-lg">Premiered:</span> {premiered}
+              <span className="font-bold text-lg pr-2">Premiered:</span> {premiered}
             </li>
             <li>
-              <span className="font-bold text-lg">Schedule:</span>{" "}
+              <span className="font-bold text-lg pr-2">Schedule:</span>{" "}
               {schedule?.time}
             </li>
           </ul>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-            onClick={() => document.getElementById("my_modal_5").showModal()}
+            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4"
+            onClick={() => openModal(!modal)}
           >
             Book Now
           </button>
-          <BookingModal
-            handleBooking={handleBooking}
-            name={name}
-            schedule={schedule}
-          />
         </div>
       </div>
+
+
+      <div
+        className={`${
+          modal
+            ? " absolute h-screen top-0 left-0 flex items-center justify-center w-full z-50"
+            : "hidden"
+        }`}
+        style={{ backgroundColor: "rgba(0,0,0,.6)" }}
+      >
+        <div className="h-auto p-4 mx-2 text-left bg-white shadow-3xl rounded-3xl md:max-w-xl md:p-6 lg:p-8 md:mx-0">
+          <div className="mb-4 text-center">
+            <h2 className="mb-4 text-2xl font-bold leading-snug text-gray-800">
+              Edit a Task
+            </h2>
+          </div>
+          <div>
+            <form
+              className="space-y-4 md:space-y-3 w-72 lg:w-96"
+              onSubmit={handleBooking}
+            >
+              <label
+                className="block mb-2  font-medium text-gray-900"
+                htmlFor="title"
+              >
+                Title:
+              </label>
+              <input
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
+                placeholder="Task Title"
+                type="text"
+                id="title"
+                name="title"
+                required
+              />
+
+              <label
+                className="block mb-2  font-medium text-gray-900"
+                htmlFor="description"
+              >
+                Description:
+              </label>
+              <textarea
+                id="description"
+                placeholder="Task Description"
+                className="bg-gray-50  border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full  px-2 leading-tight  border py-2"
+                name="description"
+                required
+              />
+
+              <label
+                className="block mb-2  font-medium text-gray-900"
+                htmlFor="deadline"
+              >
+                Deadline:
+              </label>
+              <input
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
+                type="date"
+                id="deadline"
+                name="deadline"
+                // defaultValue={editTaskData.deadline}
+                required
+              />
+
+              <label
+                className="block mb-2  font-medium text-gray-900"
+                htmlFor="priority"
+              >
+                Priority:
+              </label>
+              <select
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5"
+                id="priority"
+                name="priority"
+                required
+              >
+                {/* <option defaultValue={editTaskData.priority}>
+                  {editTaskData.priority}
+                </option>
+                {editTaskData.priority !== "Low" && (
+                  <option value="Low">Low</option>
+                )}
+                {editTaskData.priority !== "Moderate" && (
+                  <option value="Moderate">Moderate</option>
+                )}
+                {editTaskData.priority !== "High" && (
+                  <option value="High">High</option>
+                )} */}
+              </select>
+
+              <span className="justify-center gap-3 lg:gap-4 flex shadow-sm items-center">
+                <button
+                  type="button"
+                  onClick={() => {
+                    openModal(!modal);
+                  }}
+                  className="inline-block px-5 py-3 mt-3 font-semibold leading-none text-red-500 border border-red-500 rounded-lg hover:text-red-400 hover:border-red-400"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="inline-block px-5 py-3 mt-3 font-semibold leading-none text-gray-100 bg-red-600 hover:bg-red-500 border border-gray-100 rounded-lg"
+                >
+                  Cofirm
+                </button>
+              </span>
+            </form>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 };
