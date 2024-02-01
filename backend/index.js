@@ -42,6 +42,23 @@ async function run() {
         res.status(500).send("Internal Server Error");
       }
     });
+
+    app.get("/shows/:id", async (req, res) => {
+      const showsId = req.params.id;
+      try {
+        const show = await showCollection.findOne({
+          _id: new ObjectId(showsId),
+        });
+        if (show) {
+          res.json(show);
+        } else {
+          res.status(404).json({ error: "Show not found" });
+        }
+      } catch (error) {
+        console.error("Error fetching show:", error);
+        res.status(500).send("Internal Server Error");
+      }
+    });
    
   } finally {
     // await client.close();

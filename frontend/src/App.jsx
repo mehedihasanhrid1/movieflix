@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     fetch("https://movieflixquadbshows.vercel.app/shows")
-      .then((r) => r.json())
+      .then((result) => result.json())
       .then((shows) => setShows(shows));
   }, []);
 
@@ -16,7 +16,7 @@ function App() {
       <h1 className="text-5xl font-bold text-center pt-8">Movie<span className="text-red-500">Flix</span> </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  p-4 pb-8">
         {shows.map((show) => (
-          <ShowCard key={show.show.id} show={show.show} />
+          <ShowCard key={show.show.id} data={show} />
         ))}
       </div>
     </div>

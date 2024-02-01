@@ -18,10 +18,10 @@ const router = createBrowserRouter([
         path: "/shows/:id",
         element: <ShowDetails />,
         loader: async ({ params }) => {
-          const res = await fetch(
+          const result = await fetch(
             `https://movieflixquadbshows.vercel.app/shows/${params.id}`
           );
-          const data = await res.json();
+          const data = await result.json();
           return data;
         },
       },
