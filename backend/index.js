@@ -32,10 +32,6 @@ async function run() {
     const database = client.db("MovieFlix");
     const showCollection = database.collection("Shows");
 
-    // const result = await axios.get("https://api.tvmaze.com/search/shows?q=all");
-   
-    
-
     app.get("/shows", async (req, res) => {
       try {
 
